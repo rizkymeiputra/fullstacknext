@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Cookie from "js-cookie";
 
-export default function Register() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -8,7 +9,7 @@ export default function Register() {
     e.preventDefault();
     console.log(JSON.stringify({ email, password }));
 
-    const register = await fetch("/api/auth/register", {
+    const login = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,13 +17,14 @@ export default function Register() {
       body: JSON.stringify({ email, password }),
     });
 
-    const registerResponse = await register.json();
-    console.log(registerResponse);
+    const loginResponse = await login.json();
+
+    Cookie.set("token", loginResponse.token);
   };
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Login</h1>
       <form onSubmit={(e) => onSubmitHandler(e)}>
         <label>
           Email
@@ -45,7 +47,7 @@ export default function Register() {
         </label>
         <br />
         <br />
-        <input type="submit" value="Register" />
+        <input type="submit" value="Login" />
       </form>
     </div>
   );
