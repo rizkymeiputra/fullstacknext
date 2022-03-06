@@ -11,10 +11,14 @@ export default function authorization(req, res) {
 
     if (authType !== "Bearer") return res.status(401).end();
 
-    return jwt.verify(authToken, "sushiKuah", function (err, decoded) {
-      if (err) return res.status(401).end();
+    return jwt.verify(
+      authToken,
+      process.env.JWT_SECRET_CODE,
+      function (err, decoded) {
+        if (err) return res.status(401).end();
 
-      return resolve(decoded);
-    });
+        return resolve(decoded);
+      }
+    );
   });
 }

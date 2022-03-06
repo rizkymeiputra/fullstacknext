@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       id: checkUser.id,
       email: checkUser.email,
     },
-    "sushiKuah",
+    process.env.JWT_SECRET_CODE,
     {
       expiresIn: "7d",
     }
