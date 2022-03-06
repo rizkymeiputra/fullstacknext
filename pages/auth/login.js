@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookie from "js-cookie";
+import Router from "next/router";
+import { unauthPage } from "../middlewares/authorizationPage";
+
+export async function getServerSideProps(ctx) {
+  await unauthPage(ctx);
+
+  return { props: {} };
+}
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const token = Cookie.get("token");
+
+    if (token) return Router.push("/posts");
+  });
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -20,6 +34,8 @@ export default function Login() {
     const loginResponse = await login.json();
 
     Cookie.set("token", loginResponse.token);
+
+    Router.push("/posts");
   };
 
   return (
