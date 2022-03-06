@@ -44,7 +44,9 @@ export default function PostIndex(props) {
       {posts &&
         posts.map((post) => (
           <div key={post.id}>
-            <strong>{post.title}</strong>
+            <Link href={`/posts/${post.id}`}>
+              <strong>{post.title}</strong>
+            </Link>
             <div>
               <Link href={`/posts/edit/${post.id}`}>Edit</Link>
               <button onClick={() => deleteHandler(post.id)}>Delete</button>
