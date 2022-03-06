@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookie from "js-cookie";
 import Router from "next/router";
 import { unauthPage } from "../middlewares/authorizationPage";
+import Link from "next/link";
 
 export async function getServerSideProps(ctx) {
   await unauthPage(ctx);
@@ -21,7 +22,6 @@ export default function Login() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(JSON.stringify({ email, password }));
 
     const login = await fetch("/api/auth/login", {
       method: "POST",
@@ -65,6 +65,7 @@ export default function Login() {
         <br />
         <input type="submit" value="Login" />
       </form>
+      <Link href="/auth/register">Create an account</Link>
     </div>
   );
 }

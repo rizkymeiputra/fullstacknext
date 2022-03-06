@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Router from "next/router";
 import { authPage } from "../middlewares/authorizationPage";
+import Link from "next/link";
+import Nav from "../../components/Nav";
 
 export async function getServerSideProps(ctx) {
   const { token } = await authPage(ctx);
@@ -15,17 +17,21 @@ export async function getServerSideProps(ctx) {
 
   const post = await postReq.json();
 
-  return { props: { post: post.data } };
+  return { props: { id, post: post.data } };
 }
 
 export default function PostEdit(props) {
-  const { post } = props;
+  const { id, post } = props;
   const { title, content } = post;
 
   return (
     <div>
+      <Nav />
       <h1>{title}</h1>
       <p>{content}</p>
+      <Link href={`/posts/edit/${id}`} passHref={true}>
+        <button>Edit this post</button>
+      </Link>
     </div>
   );
 }

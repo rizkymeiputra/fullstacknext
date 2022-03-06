@@ -12,7 +12,10 @@ export function unauthPage(ctx) {
         .end();
     }
 
-    return resolve("unauthorized");
+    return resolve({
+      isLoggedin: false,
+      message: "Unauthorized",
+    });
   });
 }
 
@@ -29,6 +32,7 @@ export function authPage(ctx) {
     }
 
     return resolve({
+      isLoggedin: true,
       token: allCookies.token,
     });
   });

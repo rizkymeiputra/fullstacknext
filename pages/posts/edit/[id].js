@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Router from "next/router";
 import { authPage } from "../../middlewares/authorizationPage";
+import Nav from "../../../components/Nav";
 
 export async function getServerSideProps(ctx) {
   const { token } = await authPage(ctx);
@@ -42,6 +43,7 @@ export default function PostEdit(props) {
 
   return (
     <div>
+      <Nav />
       <h1>Edit Post</h1>
 
       <form onSubmit={(e) => onUpdateHandler(e)}>

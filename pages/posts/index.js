@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { authPage } from "../middlewares/authorizationPage";
+import Nav from "../../components/Nav";
 
 export async function getServerSideProps(ctx) {
   const { token } = await authPage(ctx);
@@ -39,12 +40,12 @@ export default function PostIndex(props) {
 
   return (
     <div>
+      <Nav />
       <h1>Posts</h1>
-
       {posts &&
         posts.map((post) => (
           <div key={post.id}>
-            <Link href={`/posts/${post.id}`}>
+            <Link href={`/posts/${post.id}`} passHref={true}>
               <strong>{post.title}</strong>
             </Link>
             <div>
