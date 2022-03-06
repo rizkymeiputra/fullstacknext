@@ -6,6 +6,8 @@ export default async function handler(req, res) {
 
   await authorization(req, res);
 
+  console.log(req.query);
+
   const { id } = req.query;
 
   const deleteRow = await db("posts").where({ id }).del();

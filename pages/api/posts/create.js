@@ -6,6 +6,8 @@ export default async function handler(req, res) {
 
   await authorization(req, res);
 
+  console.log(req.body);
+
   const { title, content } = req.body;
 
   const create = await db("posts").insert({ title, content });
